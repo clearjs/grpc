@@ -19,58 +19,58 @@
 var grpc = require('grpc');
 var route_guide_pb = require('./route_guide_pb.js');
 
-function serialize_Feature(arg) {
+function serialize_routeguide_Feature(arg) {
   if (!(arg instanceof route_guide_pb.Feature)) {
-    throw new Error('Expected argument of type Feature');
+    throw new Error('Expected argument of type routeguide.Feature');
   }
   return new Buffer(arg.serializeBinary());
 }
 
-function deserialize_Feature(buffer_arg) {
+function deserialize_routeguide_Feature(buffer_arg) {
   return route_guide_pb.Feature.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_Point(arg) {
+function serialize_routeguide_Point(arg) {
   if (!(arg instanceof route_guide_pb.Point)) {
-    throw new Error('Expected argument of type Point');
+    throw new Error('Expected argument of type routeguide.Point');
   }
   return new Buffer(arg.serializeBinary());
 }
 
-function deserialize_Point(buffer_arg) {
+function deserialize_routeguide_Point(buffer_arg) {
   return route_guide_pb.Point.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_Rectangle(arg) {
+function serialize_routeguide_Rectangle(arg) {
   if (!(arg instanceof route_guide_pb.Rectangle)) {
-    throw new Error('Expected argument of type Rectangle');
+    throw new Error('Expected argument of type routeguide.Rectangle');
   }
   return new Buffer(arg.serializeBinary());
 }
 
-function deserialize_Rectangle(buffer_arg) {
+function deserialize_routeguide_Rectangle(buffer_arg) {
   return route_guide_pb.Rectangle.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_RouteNote(arg) {
+function serialize_routeguide_RouteNote(arg) {
   if (!(arg instanceof route_guide_pb.RouteNote)) {
-    throw new Error('Expected argument of type RouteNote');
+    throw new Error('Expected argument of type routeguide.RouteNote');
   }
   return new Buffer(arg.serializeBinary());
 }
 
-function deserialize_RouteNote(buffer_arg) {
+function deserialize_routeguide_RouteNote(buffer_arg) {
   return route_guide_pb.RouteNote.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_RouteSummary(arg) {
+function serialize_routeguide_RouteSummary(arg) {
   if (!(arg instanceof route_guide_pb.RouteSummary)) {
-    throw new Error('Expected argument of type RouteSummary');
+    throw new Error('Expected argument of type routeguide.RouteSummary');
   }
   return new Buffer(arg.serializeBinary());
 }
 
-function deserialize_RouteSummary(buffer_arg) {
+function deserialize_routeguide_RouteSummary(buffer_arg) {
   return route_guide_pb.RouteSummary.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
@@ -89,10 +89,10 @@ var RouteGuideService = exports.RouteGuideService = {
     responseStream: false,
     requestType: route_guide_pb.Point,
     responseType: route_guide_pb.Feature,
-    requestSerialize: serialize_Point,
-    requestDeserialize: deserialize_Point,
-    responseSerialize: serialize_Feature,
-    responseDeserialize: deserialize_Feature,
+    requestSerialize: serialize_routeguide_Point,
+    requestDeserialize: deserialize_routeguide_Point,
+    responseSerialize: serialize_routeguide_Feature,
+    responseDeserialize: deserialize_routeguide_Feature,
   },
   // A server-to-client streaming RPC.
   //
@@ -106,10 +106,10 @@ var RouteGuideService = exports.RouteGuideService = {
     responseStream: true,
     requestType: route_guide_pb.Rectangle,
     responseType: route_guide_pb.Feature,
-    requestSerialize: serialize_Rectangle,
-    requestDeserialize: deserialize_Rectangle,
-    responseSerialize: serialize_Feature,
-    responseDeserialize: deserialize_Feature,
+    requestSerialize: serialize_routeguide_Rectangle,
+    requestDeserialize: deserialize_routeguide_Rectangle,
+    responseSerialize: serialize_routeguide_Feature,
+    responseDeserialize: deserialize_routeguide_Feature,
   },
   // A client-to-server streaming RPC.
   //
@@ -121,10 +121,10 @@ var RouteGuideService = exports.RouteGuideService = {
     responseStream: false,
     requestType: route_guide_pb.Point,
     responseType: route_guide_pb.RouteSummary,
-    requestSerialize: serialize_Point,
-    requestDeserialize: deserialize_Point,
-    responseSerialize: serialize_RouteSummary,
-    responseDeserialize: deserialize_RouteSummary,
+    requestSerialize: serialize_routeguide_Point,
+    requestDeserialize: deserialize_routeguide_Point,
+    responseSerialize: serialize_routeguide_RouteSummary,
+    responseDeserialize: deserialize_routeguide_RouteSummary,
   },
   // A Bidirectional streaming RPC.
   //
@@ -136,10 +136,10 @@ var RouteGuideService = exports.RouteGuideService = {
     responseStream: true,
     requestType: route_guide_pb.RouteNote,
     responseType: route_guide_pb.RouteNote,
-    requestSerialize: serialize_RouteNote,
-    requestDeserialize: deserialize_RouteNote,
-    responseSerialize: serialize_RouteNote,
-    responseDeserialize: deserialize_RouteNote,
+    requestSerialize: serialize_routeguide_RouteNote,
+    requestDeserialize: deserialize_routeguide_RouteNote,
+    responseSerialize: serialize_routeguide_RouteNote,
+    responseDeserialize: deserialize_routeguide_RouteNote,
   },
 };
 
