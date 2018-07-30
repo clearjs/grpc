@@ -16,14 +16,22 @@
  *
  */
 
-var GoogleAuth = require('google-auth-library');
+var {JWT} = require('google-auth-library');
 var messages = require('./route_guide/google/pubsub/v1/pubsub_pb');
 var services = require('./route_guide/google/pubsub/v1/pubsub_grpc_pb');
+var keys = require('./gcloud-config-test.secret.json');
 
 
 var grpc = require('grpc');
 
 function main() {
+  const client = new JWT(
+    keys.client_email,
+    null,
+    keys.private_key,
+    ['https://www.googleapis.com/auth/cloud-platform'],
+  );
+
   var ssl_creds = grpc.credentials.createSsl();
   (new GoogleAuth()).getApplicationDefault(function(err, auth) {
     var call_creds = grpc.credentials.createFromGoogleCredential(auth);
