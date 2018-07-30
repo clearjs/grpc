@@ -16,24 +16,32 @@
  *
  */
 
-var messages = require('./helloworld_pb');
-var services = require('./helloworld_grpc_pb');
+var GoogleAuth = require('google-auth-library');
+var messages = require('./route_guide/google/pubsub/v1/pubsub_pb');
+var services = require('./route_guide/google/pubsub/v1/pubsub_grpc_pb');
+
 
 var grpc = require('grpc');
 
 function main() {
-  var client = new services.GreeterClient('localhost:50051',
-                                          grpc.credentials.createInsecure());
-  var request = new messages.HelloRequest();
-  var user;
-  if (process.argv.length >= 3) {
-    user = process.argv[2];
-  } else {
-    user = 'world';
-  }
-  request.setName(user);
-  client.sayHello(request, function(err, response) {
-    console.log('Greeting:', response.getMessage());
+  var ssl_creds = grpc.credentials.createSsl();
+  (new GoogleAuth()).getApplicationDefault(function(err, auth) {
+    var call_creds = grpc.credentials.createFromGoogleCredential(auth);
+    var combined_creds = grpc.credentials.combineChannelCredentials(ssl_creds, call_creds);
+    //var stub = new helloworld.Greeter('greeter.googleapis.com', combined_credentials);
+    var client = new services.PublisherClient('pubsub.googleapis.com:443', combined_credentials);
+    var request = new messages.ListTopicsRequest();
+    var project;
+    if (process.argv.length >= 3) {
+      project = process.argv[2];
+    } else {
+      project = 'projects/pubsub-elixir';
+    }
+    request.setProject(project);
+    client.listTopics(request, function(err, response) {
+      console.log('Error: ', err)
+      !err && console.log('Topics:', response.getMessage());
+    });
   });
 }
 
